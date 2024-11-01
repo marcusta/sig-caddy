@@ -35,8 +35,7 @@ https://app.swedenindoorgolf.se {
         }
     }
 
-    root * /public
-    file_server
+
 
     handle_path /bookings/* {
         reverse_proxy localhost:3001
@@ -51,6 +50,7 @@ https://app.swedenindoorgolf.se {
     }
 
     handle {
-        respond "Welcome to app.swedenindoorgolf.se!"
+        root * /public
+        file_server
     }
 }
