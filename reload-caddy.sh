@@ -1,1 +1,1 @@
-docker-compose exec -w /etc/caddy caddy caddy reload
+sudo docker-compose exec -w /etc/caddy caddy caddy reload
