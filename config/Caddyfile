@@ -1,0 +1,67 @@
+# Redirect HTTP to HTTPS
+http://semat.hopto.org {
+    redir https://{host}{uri} permanent
+}
+
+http://app.swedenindoorgolf.se {
+    redir https://{host}{uri} permanent
+}
+
+# Reverse proxy to the Bun service
+https://semat.hopto.org {
+    handle_path /gsp/* {
+        reverse_proxy host.docker.internal:3000
+    }
+
+    handle_path /web/* {
+        reverse_proxy host.docker.internal:3002
+    }
+
+    # Optional: Redirect root to /gsp-api
+    # redir / /gsp-api
+
+    # Optional: Handle other paths or serve static content
+    handle {
+        respond "Welcome to semat.hopto.org!"
+    }
+}
+
+https://app.swedenindoorgolf.se {
+    log {
+        output file /data/log/access.log {
+            roll_size 1gb
+            roll_keep 3
+            roll_keep_for 720h
+        }
+    }
+
+    # Serve robots.txt
+    handle_path /robots.txt {
+        file_server {
+            root /public
+        }
+    }
+
+    # Serve sitemap.xml
+    handle_path /sitemap.xml {
+        file_server {
+            root /public
+        }
+    }
+
+    handle_path /bookings/* {
+        reverse_proxy localhost:3001
+    }
+
+    handle_path /gsp/* {
+        reverse_proxy localhost:3000
+    }
+
+    handle_path /web/* {
+        reverse_proxy localhost:3002
+    }
+
+    handle {
+        respond "Welcome to app.swedenindoorgolf.se!"
+    }
+}
