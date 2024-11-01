@@ -36,14 +36,14 @@ https://app.swedenindoorgolf.se {
     }
 
     # Serve robots.txt
-    handle_path /robots.txt {
+    handle /robots.txt {
         file_server {
             root /public
         }
     }
 
     # Serve sitemap.xml
-    handle_path /sitemap.xml {
+    handle /sitemap.xml {
         file_server {
             root /public
         }
