@@ -10,7 +10,7 @@ services:
       - ./config/Caddyfile:/etc/caddy/Caddyfile
       - ./data:/data
       - ./config:/config
-      - /srv/sig-web/public:/public
+      - ./public:/public
     environment:
       - ACME_AGREE=true
       - CADDY_WATCH=true
