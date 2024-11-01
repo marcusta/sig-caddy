@@ -35,19 +35,8 @@ https://app.swedenindoorgolf.se {
         }
     }
 
-    # Serve robots.txt
-    handle /robots.txt {
-        file_server {
-            root /public
-        }
-    }
-
-    # Serve sitemap.xml
-    handle /sitemap.xml {
-        file_server {
-            root /public
-        }
-    }
+    root /robots.txt /public
+    root /sitemap.xml /public
 
     handle_path /bookings/* {
         reverse_proxy localhost:3001
